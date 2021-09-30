@@ -30,7 +30,6 @@ func find_closest_building_block():
 			if to_global(i.coordinates).distance_to(to_global(position)) < closest_val:
 				closest = i
 				closest_val = to_global(i.coordinates).distance_to(to_global(position))
-				print("changed?")
 		return closest.coordinates
 		
 	

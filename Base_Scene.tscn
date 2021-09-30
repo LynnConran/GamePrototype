@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://pixil-frame-0.png" type="Texture" id=1]
 [ext_resource path="res://Player.gd" type="Script" id=2]
@@ -8,8 +8,6 @@
 [ext_resource path="res://Base_Scene.gd" type="Script" id=6]
 [ext_resource path="res://UI.gd" type="Script" id=7]
 [ext_resource path="res://wallset.tres" type="TileSet" id=8]
-
-[sub_resource type="Theme" id=1]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 25.868, 16.3816 )
@@ -37,7 +35,7 @@ __meta__ = {
 }
 
 [node name="Player" type="KinematicBody2D" parent="."]
-position = Vector2( 1050.84, 624.403 )
+position = Vector2( 1080.02, 619.165 )
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
@@ -67,28 +65,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Minion commands" type="MenuButton" parent="Player/Camera2D/UI"]
-anchor_left = 19.357
-anchor_top = -0.26
-anchor_right = 21.888
-anchor_bottom = 0.5
-margin_left = 25.3979
-margin_top = 8.26682
-margin_right = -28.0281
-margin_bottom = -6.69317
-theme = SubResource( 1 )
-text = "OHHHH"
-items = [ "Test1", null, 0, false, false, 0, 0, null, "", false, "Test2", null, 0, false, false, 1, 0, null, "", false ]
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="OptionButton" type="OptionButton" parent="Player/Camera2D/UI"]
 anchor_right = 0.5
-margin_left = 759.04
-margin_top = -22.9289
-margin_right = 888.04
-margin_bottom = 27.0711
+margin_left = 843.599
+margin_top = -18.439
+margin_right = 972.599
+margin_bottom = 31.561
 text = "Minion"
 items = [ "Minion", null, false, 0, null, "Player", null, false, 1, null, "Build", null, false, 2, null ]
 selected = 0
@@ -106,8 +88,14 @@ position = Vector2( -2.78406, 15.1047 )
 shape = SubResource( 2 )
 
 [node name="Minion" parent="." instance=ExtResource( 5 )]
-position = Vector2( 128, 117.333 )
+position = Vector2( 128, 101.333 )
+input_pickable = true
 
 [connection signal="item_selected" from="Player/Camera2D/UI/BuildList" to="." method="_on_ItemList_item_selected"]
 [connection signal="mouse_entered" from="Player/Camera2D/UI/BuildList" to="." method="_on_ItemList_mouse_entered"]
 [connection signal="mouse_exited" from="Player/Camera2D/UI/BuildList" to="." method="_on_ItemList_mouse_exited"]
+[connection signal="item_selected" from="Player/Camera2D/UI/OptionButton" to="." method="_on_OptionButton_item_selected"]
+[connection signal="mouse_entered" from="Player/Camera2D/UI/OptionButton" to="." method="_on_OptionButton_mouse_entered"]
+[connection signal="mouse_exited" from="Player/Camera2D/UI/OptionButton" to="." method="_on_OptionButton_mouse_exited"]
+[connection signal="mouse_entered" from="Minion" to="." method="_on_Minion_mouse_entered"]
+[connection signal="mouse_exited" from="Minion" to="." method="_on_Minion_mouse_exited"]

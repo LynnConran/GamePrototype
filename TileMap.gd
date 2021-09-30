@@ -5,7 +5,6 @@ extends TileMap
 # var a = 2
 # var b = "text"
 var current_cell_type
-var option_limit
 var placeholders : Array
 
 func set_cell_type(index : int):
@@ -13,8 +12,7 @@ func set_cell_type(index : int):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	option_limit = get_tileset().get_tiles_ids().size()
-	current_cell_type = get_tileset().get_tiles_ids()[0]
+	#current_cell_type = get_tileset().get_tiles_ids()[0]
 	placeholders = []
 
 func change_map(pos: Vector2, cell_type: int):
