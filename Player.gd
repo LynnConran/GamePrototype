@@ -1,10 +1,7 @@
 extends KinematicBody2D
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-var speed = 500
+const SPEED = 500
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -25,7 +22,7 @@ func _process(_delta):
 		velocity.y -= 1
 
 	if velocity.length() > 0:
-		velocity = velocity.normalized() * speed
+		velocity = velocity.normalized() * SPEED
 	
 	move_and_slide(velocity)
 

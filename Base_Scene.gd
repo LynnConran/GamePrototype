@@ -8,6 +8,7 @@ extends Node2D
 onready var player = $Player
 onready var buildable = $Buildable
 onready var buildList = $Player/Camera2D/UI/BuildList
+onready var navigator = $Navigation2D
 
 var selected_entity
 var mouse_in_ui = false
@@ -25,7 +26,9 @@ func _input(event):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	 $Minion.connect("input_event", self, "_on_Minion_input_event", [$Minion])
+	$Minion.connect("input_event", self, "_on_Minion_input_event", [$Minion])
+	$Minion.set_destination()
+	$Minion.connect_signals() # Remember to add this when making more
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -41,10 +44,12 @@ func _on_ItemList_mouse_exited():
 func _on_ItemList_item_selected(index):
 	if index == buildList.get_item_count() - 1:
 		buildable.current_cell_type = -1
+	elif index == buildList.get_item_count() - 2:
+		buildable.current_cell_type = null
 	else:
 		buildable.set_cell_type(index)
 
-func _on_Minion_input_event(viewport, event, shape_idx, source):
+func _on_Minion_input_event(_viewport, event, _shape_idx, source):
 	if event is InputEventMouseButton and Input.is_action_pressed("left_click"):
 		selected_entity = source
 

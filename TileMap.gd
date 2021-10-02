@@ -7,6 +7,8 @@ extends TileMap
 var current_cell_type
 var placeholders : Array
 
+signal map_changed
+
 func set_cell_type(index : int):
 	current_cell_type = get_tileset().get_tiles_ids()[index]
 
@@ -20,11 +22,9 @@ func change_map(pos: Vector2, cell_type: int):
 	if cell_type == -1:
 		set_cellv(pos, -1)
 	elif get_cellv(pos) < 0:
-		if cell_type >= 0:
-			var cell_id = get_tileset().get_tiles_ids()[cell_type]
-			set_cellv(pos, cell_id)
-		else:
-			set_cellv(pos, -1)
+		var cell_id = get_tileset().get_tiles_ids()[cell_type]
+		set_cellv(pos, cell_id)
+		get_parent().navigator.add_mesh(pos)
 
 func add_placeholder(pos: Vector2, cell_type: int):
 	var scene = load("res://ToBuild.tscn")
@@ -32,6 +32,7 @@ func add_placeholder(pos: Vector2, cell_type: int):
 	add_child(node)
 	node.instantiate(pos, cell_type)
 	placeholders.append(node)
+	emit_signal("map_changed")
 
 func remove_placeholder(node):
 	placeholders.erase(node)

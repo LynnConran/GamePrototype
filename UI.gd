@@ -5,13 +5,13 @@ extends Control
 # var a = 2
 # var b = "text"
 onready var list = $BuildList
-onready var minions = $"Minion commands"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	list.add_item("green")
 	list.add_item("red")
 	list.add_item("blue")
+	list.add_item("none")
 	list.add_item("remove")
 
 
