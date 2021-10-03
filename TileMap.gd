@@ -34,7 +34,7 @@ func change_map(pos: Vector2, cell_type: int):
 	elif get_cellv(pos) < 0:
 		var cell_id = get_tileset().get_tiles_ids()[cell_type]
 		set_cellv(pos, cell_id)
-		get_parent().navigator.add_mesh(pos)
+	define_walls()
 
 func add_placeholder(pos: Vector2, cell_type: int):
 	var scene = load("res://ToBuild.tscn")

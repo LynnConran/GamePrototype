@@ -1,14 +1,10 @@
 extends Node2D
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
 onready var player : KinematicBody2D = $Player
 onready var buildable : TileMap = $Buildable
 onready var buildList : ItemList = $Player/Camera2D/UI/BuildList
-onready var navigator = $Navigation2D
+onready var line = $Line2D
 
 var selected_entity
 var mouse_in_ui = false

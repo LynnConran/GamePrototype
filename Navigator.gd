@@ -10,6 +10,7 @@ var point_path = []
 onready var astar_node = AStar2D.new()
 
 func set_path(start, end):
+	astar_node.clear()
 	var walkable_cells_list = astar_add_walkable_cells(walls.walls)
 	astar_connect_walkable_cells(walkable_cells_list)
 	return get_astar_path(start, end)
@@ -33,7 +34,11 @@ func astar_connect_walkable_cells(points_array):
 			point + Vector2.RIGHT,
 			point + Vector2.LEFT,
 			point + Vector2.DOWN,
-			point + Vector2.UP
+			point + Vector2.UP,
+			point + Vector2(1, 1),
+			point + Vector2(1, -1),
+			point + Vector2(-1, 1),
+			point + Vector2(-1, -1)
 		])
 		for point_relative in points_relative:
 			var point_relative_index = calculate_point_index(point_relative)
