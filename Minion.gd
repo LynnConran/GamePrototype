@@ -4,21 +4,22 @@ extends KinematicBody2D
 const MOVE_SPEED = 100
 
 onready var parent = get_parent()
+onready var nav = $Navigator
 
 var goal : String 
 var destination : Vector2
 var path : PoolVector2Array
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	goal = "Player"
+	goal = "Build"
 
 func connect_signals():
 	parent.buildable.connect("map_changed", self, "_on_map_change")
 	
 func _on_map_change():
 	set_destination()
-	print("recieved map change")
 
 func find_closest_building_block():
 	var list = parent.buildable.placeholders
@@ -51,7 +52,7 @@ func _process(_delta):
 	if path.size() > 0:
 		var direction = to_global(position).direction_to(to_global(path[0]))
 		var movement = direction * MOVE_SPEED
-		if position.distance_to(path[0]) < 5:
+		if position.distance_to(path[0]) < 3:
 			position = path[0]
 			path.remove(0)
 			if path.size() == 0:
@@ -61,7 +62,12 @@ func _process(_delta):
 
 func set_goal(new_goal : String):
 	goal = new_goal
+	print("goal set! to " + goal)
 	set_destination()
 
 func set_path():
-	path = parent.navigator.get_simple_path(position, to_local(destination))
+	path = nav.set_path(position, destination)
+#	path = parent.navigator.get_simple_path(position, to_local(destination))
+#	$Line2D.points = path
+#	for i in range($Line2D.points.size()):
+#		$Line2D.set_point_position(i, $Line2D.get_point_position(i) - position)

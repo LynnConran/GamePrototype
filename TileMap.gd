@@ -2,12 +2,16 @@ extends TileMap
 
 
 # Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+export (Vector2) var map_size
+
 var current_cell_type
 var placeholders : Array
+var walls : Array = []
+onready var _half_cell_size = cell_size / 2
 
 signal map_changed
+
+const impassable_list = [0, 1, 2] # List of impassable values
 
 func set_cell_type(index : int):
 	current_cell_type = get_tileset().get_tiles_ids()[index]
@@ -16,6 +20,12 @@ func set_cell_type(index : int):
 func _ready():
 	#current_cell_type = get_tileset().get_tiles_ids()[0]
 	placeholders = []
+	define_walls()
+
+func define_walls():
+	walls = []
+	for i in impassable_list:
+		walls.append_array(get_used_cells_by_id(i))
 
 func change_map(pos: Vector2, cell_type: int):
 	#Logic to determine what to place

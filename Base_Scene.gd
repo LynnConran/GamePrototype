@@ -5,9 +5,9 @@ extends Node2D
 # var a = 2
 # var b = "text"
 
-onready var player = $Player
-onready var buildable = $Buildable
-onready var buildList = $Player/Camera2D/UI/BuildList
+onready var player : KinematicBody2D = $Player
+onready var buildable : TileMap = $Buildable
+onready var buildList : ItemList = $Player/Camera2D/UI/BuildList
 onready var navigator = $Navigation2D
 
 var selected_entity
@@ -27,8 +27,9 @@ func _input(event):
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Minion.connect("input_event", self, "_on_Minion_input_event", [$Minion])
-	$Minion.set_destination()
 	$Minion.connect_signals() # Remember to add this when making more
+	$Minion/Navigator.walls = buildable
+	$Minion.set_destination()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -62,9 +63,9 @@ func _on_Minion_mouse_exited():
 func _on_OptionButton_item_selected(index):
 	if selected_entity:
 		if index == 1:
-			selected_entity.goal = "Player"
+			selected_entity.set_goal("Player")
 		elif index == 2:
-			selected_entity.goal = "Build"
+			selected_entity.set_goal("Build")
 
 func _on_OptionButton_mouse_entered():
 	mouse_in_ui = true
